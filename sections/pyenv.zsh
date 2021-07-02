@@ -29,9 +29,15 @@ spaceship_pyenv() {
 
   local pyenv_status=${$(pyenv version-name 2>/dev/null)//:/ }
 
+  if [ -n "$VIRTUAL_ENV" ]; then
+    local venv_status=" (${VIRTUAL_ENV:t})"
+  else
+    local venv_status=""
+  fi
+
   spaceship::section \
     "$SPACESHIP_PYENV_COLOR" \
     "$SPACESHIP_PYENV_PREFIX" \
-    "${SPACESHIP_PYENV_SYMBOL}${pyenv_status}" \
+    "${SPACESHIP_PYENV_SYMBOL}${pyenv_status}${venv_status}" \
     "$SPACESHIP_PYENV_SUFFIX"
 }
