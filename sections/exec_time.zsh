@@ -12,6 +12,7 @@ SPACESHIP_EXEC_TIME_PREFIX="${SPACESHIP_EXEC_TIME_PREFIX="took "}"
 SPACESHIP_EXEC_TIME_SUFFIX="${SPACESHIP_EXEC_TIME_SUFFIX="$SPACESHIP_PROMPT_DEFAULT_SUFFIX"}"
 SPACESHIP_EXEC_TIME_COLOR="${SPACESHIP_EXEC_TIME_COLOR="yellow"}"
 SPACESHIP_EXEC_TIME_ELAPSED="${SPACESHIP_EXEC_TIME_ELAPSED=2}"
+SPACESHIP_EXEC_TIME_BEEP="${SPACESHIP_EXEC_TIME_BEEP=60}"
 
 # ------------------------------------------------------------------------------
 # Section
@@ -19,6 +20,10 @@ SPACESHIP_EXEC_TIME_ELAPSED="${SPACESHIP_EXEC_TIME_ELAPSED=2}"
 
 spaceship_exec_time() {
   [[ $SPACESHIP_EXEC_TIME_SHOW == false ]] && return
+
+  if [[ $SPACESHIP_EXEC_TIME_duration -ge $SPACESHIP_EXEC_TIME_BEEP ]]; then
+    afplay /System/Library/Sounds/Glass.aiff &
+  fi
 
   if [[ $SPACESHIP_EXEC_TIME_duration -ge $SPACESHIP_EXEC_TIME_ELAPSED ]]; then
     spaceship::section \
